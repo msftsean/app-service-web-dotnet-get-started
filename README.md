@@ -27,3 +27,31 @@ Resources:
 - [Release Notes](RELEASE_NOTES.md)
 
 High-level next steps: port views & controllers into the Core project, add integration tests, then retire the legacy project once parity is confirmed.
+
+## Containerization & Local k3s Deployment
+
+The ASP.NET Core app (`CoreHost/CoreHostApp`) can be built into a container image and deployed onto a local k3s cluster.
+
+### Build & Run Locally (Container Only)
+
+```bash
+docker build -t corehost:local .
+docker run --rm -p 8080:8080 corehost:local
+# Browse: http://localhost:8080
+```
+
+### Deploy to k3s
+Assumes a local k3s cluster is running and `kubectl` points to it.
+
+```bash
+docker build -t corehost:local .
+kubectl apply -f k8s/corehost.yaml
+kubectl -n corehost rollout status deploy/corehost
+# NodePort: http://<node-ip>:30080
+# (Optional) Ingress: add '127.0.0.1 corehost.local' to /etc/hosts then browse http://corehost.local
+```
+
+### Notes
+- Image tag `corehost:local` uses `imagePullPolicy: IfNotPresent` so k3s will use the locally built image.
+- Adjust resource requests/limits in `k8s/corehost.yaml` as needed.
+- Replace NodePort with LoadBalancer or update Ingress annotations per your ingress controller.

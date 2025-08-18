@@ -1,0 +1,11 @@
+**/bin
+**/obj
+**/*.user
+**/*.suo
+*.md
+*.git*
+*.csproj.user
+nuget.exe
+.vscode
+aspnet-get-started/
+aspnet-get-started.Tests/
