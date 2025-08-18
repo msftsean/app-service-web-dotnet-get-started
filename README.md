@@ -17,3 +17,13 @@ To learn how to deploy this starter web app to App Service in a few minutes, go 
 ## License
 
 See [LICENSE](LICENSE).
+
+## Migration to ASP.NET Core
+
+This repository is undergoing a migration from the classic ASP.NET MVC 5 (.NET Framework 4.8) sample to ASP.NET Core 8. A new scaffolded Core project (`CoreHost/CoreHostApp`) and initial unit tests have been added to enable incremental porting.
+
+Resources:
+- [Migration Guide](MIGRATION.md)
+- [Release Notes](RELEASE_NOTES.md)
+
+High-level next steps: port views & controllers into the Core project, add integration tests, then retire the legacy project once parity is confirmed.
